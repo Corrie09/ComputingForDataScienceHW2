@@ -18,11 +18,24 @@
 # The function should return the total number of cases
 # registered so far in that country
 
-def total_registered_cases(data : dict, country: str):
-    if country in data:
-        return sum(data[country])
-    else :
-        return 'Country not found'
+"""def total_registered_cases(data : dict, country: str):
+if country in data:
+    return sum(data[country])
+else :
+    return 'Country not found'
+"""
+
+
+# this does the same as above, but is more "pythonic" as it uses
+# the get method of dictionaries, which allows to specify
+# a default value if the key is not found and avoids breaking when
+# the key is not present
+def total_registered_cases(data: dict, country: str) -> int:
+    # Sum the list if present; otherwise sum([]) = 0
+    return sum(
+        data.get(country, [])
+    )  # If the key exists → return its value, if the key doesn’t exist → return the default.
+
 
 # 8)
 # Create a function called "total_registered_cases_per_country"
@@ -39,6 +52,7 @@ def total_registered_cases_per_country(data: dict):
         result[country] = total_registered_cases(data, country)
     return result
 
+
 # 9)
 # Create a function called "country_with_most_cases"
 # that has 1 parameter:
@@ -49,5 +63,6 @@ def total_registered_cases_per_country(data: dict):
 def country_with_most_cases(data: dict):
     totals = total_registered_cases_per_country(data)
     if not totals:
-        return 'No data available'
+        return None
+        # return 'No data available' #this is another option, but None is safer
     return max(totals, key=totals.get)
