@@ -9,9 +9,12 @@
 # representing the usernames of every user that
 # has worked as job_title.
 
-cvs = [{'user': 'john', 'jobs': ['analyst', 'engineer']},
-{'user': 'jane', 'jobs': ['finance', 'software']},
-{'user': 'jane', 'jobs': ['finance', 'cashier']}]
+cvs = [
+    {"user": "john", "jobs": ["analyst", "engineer"]},
+    {"user": "jane", "jobs": ["finance", "software"]},
+    {"user": "jane", "jobs": ["finance", "cashier"]},
+]
+
 
 def has_experience_as(cvs, job_title):
     l = []
@@ -19,6 +22,11 @@ def has_experience_as(cvs, job_title):
         if job_title in cv["jobs"]:
             l.append(cv["user"])
     return l
+
+
+print(has_experience_as(cvs, "analyst"))  # ['john']
+print(has_experience_as(cvs, "finance"))  # ['jane', 'jane']
+print(has_experience_as(cvs, "doctor"))  # []
 #
 # 5)
 # Create a function called "job_counts"
@@ -27,6 +35,7 @@ def has_experience_as(cvs, job_title):
 # keys are the job titles and the values
 # are the number of users that have done
 # that job.
+
 
 def job_counts(cvs):
     d = {}
@@ -37,6 +46,7 @@ def job_counts(cvs):
             except KeyError:
                 d[job] = 1
     return d
+
 
 #
 # 6)
@@ -52,6 +62,7 @@ def job_counts(cvs):
 # HINT: You can use the method '.items' on
 # dictionaries to iterate over them like a
 # list of tuples.
+
 
 def most_popular_job(cvs):
     counts = job_counts(cvs)
