@@ -16,17 +16,34 @@ cvs = [
 ]
 
 
+# this is the first version, which allows duplicates
 def has_experience_as(cvs, job_title):
-    l = []
+    users = []
     for cv in cvs:
-        if job_title in cv["jobs"]:
-            l.append(cv["user"])
-    return l
+        if job_title in cv.get("jobs", []):
+            users.append(cv.get("user"))
+    return users
 
 
-print(has_experience_as(cvs, "analyst"))  # ['john']
-print(has_experience_as(cvs, "finance"))  # ['jane', 'jane']
-print(has_experience_as(cvs, "doctor"))  # []
+# this is the second version, which removes duplicates
+"""def has_experience_as(cvs, job_title):
+    users = []
+    seen = set()
+    for cv in cvs:
+        if job_title in cv.get("jobs", []):
+            user = cv.get("user")
+            if user not in seen:
+                users.append(user)
+                seen.add(user)
+    return users
+"""
+
+# quick test cases
+# print(has_experience_as(cvs, "analyst"))  # ['john']
+# print(has_experience_as(cvs, "finance"))  # ['jane', 'jane']
+# print(has_experience_as(cvs, "doctor"))  # []
+
+
 #
 # 5)
 # Create a function called "job_counts"
